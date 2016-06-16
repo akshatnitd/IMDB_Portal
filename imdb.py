@@ -55,8 +55,8 @@ def info_movie():
       status.write ("\n\t CAST        : \t\t"+cast)
       status.write ("\n\t PLOT        : \t\t"+plot)
     except KeyError:
-        print "\nNo such movie titled '"+name+"' found or else read the instructions before using this feature!\n"
-        status.write ("\nNo such movie titled '"+name+"' found else read the instructions before using this feature!\n")
+        print "\nNo such movie titled '"+name+"' found!\n"
+        status.write ("\nNo such movie titled '"+name+"' found!\n")
     
     
 def top_movies():
@@ -86,7 +86,9 @@ def folder():
     
     path=raw_input("\n\nEnter the complete path of the directory where your movies are present: ")
     dirs=os.listdir(path)
-        
+    print "Showing results for the path: "+path+"\n"
+    status.write ('Showing results for the path: '+path+'\n')
+    
     for i in range(len(dirs)):
         x=dirs[i]
         t=x.replace(' ','+')
