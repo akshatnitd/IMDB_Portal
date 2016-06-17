@@ -1,6 +1,6 @@
 # IMDB_Portal
 
-**_A simple utitlity script which assists in getting movies information and ratings._**
+**_A simple utility script which assists in getting movies information and ratings._**
 
 **Features:**
 
