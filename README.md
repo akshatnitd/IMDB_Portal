@@ -19,9 +19,9 @@
 
 
 It is implemented using the **BeautifulSoup** module of **bs4** , **requests** module, along with **os**, **sys** and **json** modules.
-* The first feature is implemented using the json response generated, after making a request via the **requests** module to the [OMDB API](https://www.themoviedb.org/) after generating an API key from the website. The json response is thereafter processed and the information is extracted using the **json** module. The IMDB rating is obtained by using the IMDB ID obtained from json response and then using it to scrap the rating from [IMDB](http://www.imdb.com/title/<IMDB_ID>).
+* The first feature is implemented using the json response generated, after making a request via the **requests** module to the [TMDB API](https://www.themoviedb.org/) after generating an API key from the website. The json response is thereafter processed and the information is extracted using the **json** module. The IMDB rating is obtained by using the IMDB ID obtained from the json response and then using the ID to scrap rating from : http://www.imdb.com/title/<IMDB_ID> .
 
-* The second feature is implemented by scraping the Top 'n'(say 50) movies from the [IMDB](http://www.imdb.com/chart/top)  website using the response generated through the **requests** module.
+* The second feature is implemented by scraping the Top 'n'(say 50) movies from the [IMDB](http://www.imdb.com/chart/top) website using the response generated through the **requests** module.
 
 *  The third feature is an added sub-feature to the first one. The information gathered, is thereafter appended to the directory name. This directory accessing and renaming is done by the help of **os** module.
 
