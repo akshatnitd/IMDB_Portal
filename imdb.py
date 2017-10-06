@@ -101,7 +101,7 @@ def folder():
 		url2 = 'https://api.themoviedb.org/3/movie/'+str(id)+'?api_key=ffb07b773769d55c36ccd83845385205&language=en-US'
 		response = requests.get(url2)
 		w = json.loads(response.text)
-		
+
 		try:
 			title = w['title']
 			year = w['release_date']
@@ -111,9 +111,8 @@ def folder():
 			response = requests.get(url3)
 			html = response.text
 			soup = bs4.BeautifulSoup(html,"lxml")
-			data = soup.select('.ratingValue')
+			data = soup.select('.ratingValue strong span')
 			rating = data[0].get_text('',strip=True)
-			rating = rating[:-3]
 
 			x = x.encode('ascii','ignore')
 			y = "["+rating+"] "+title+" ("+year+")"
@@ -123,7 +122,6 @@ def folder():
 			os.rename(os.path.join(path, x), os.path.join(path, y))			
 			print "Renaming Done\n"
 			status.write ('Renaming Done\n')
-            
 		except KeyError:
 			print "\nNo such movie titled '"+x+"' found or else read the instructions before using this feature!\n"
 			status.write ("\nNo such movie titled '"+x+"' found else read the instructions before using this feature!\n")
