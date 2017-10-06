@@ -24,38 +24,38 @@ def info_movie():
     response = requests.get(url2)
     w = json.loads(response.text)
     try:
-      title = w['title']
-      imdb_id = w['imdb_id']
-      year = w['release_date']
-      genre = w['genres']
-      language = w['spoken_languages']
-      duration = w['runtime']
-      plot = w['overview']
+		title = w['title']
+		imdb_id = w['imdb_id']
+		year = w['release_date']
+		genre = w['genres']
+		language = w['spoken_languages']
+		duration = w['runtime']
+		plot = w['overview']
 
-      url3 = 'http://www.imdb.com/title/'+str(imdb_id)
-      response = requests.get(url3)
-      html = response.text
-      soup = bs4.BeautifulSoup(html,"lxml")
-      data = soup.select('.ratingValue')
-      rating = data[0].get_text('',strip=True)
+		url3 = 'http://www.imdb.com/title/'+str(imdb_id)
+		response = requests.get(url3)
+		html = response.text
+		soup = bs4.BeautifulSoup(html,"lxml")
+		data = soup.select('.ratingValue')
+		rating = data[0].get_text('',strip=True)
 
-      print ("\n\n----------------------------MOVIE INFORMATION-------------------------\n")
-      print ("\n\t TITLE       : \t\t"+title)
-      print ("\n\t IMDB RATING : \t\t"+rating)
-      print ("\n\t RELEASED ON : \t\t"+year)
-      print ("\n\t DURATION    : \t\t"+str(duration)+" mins")
-      print ("\n\t LANGUAGE    : \t\t"+language[0]['name'])
-      print ("\n\t GENRE       : \t\t"+genre[0]['name'])
-      print ("\n\t PLOT        : \t\t"+plot)
-      
-      status.write ("\n\n--------------------------------------MOVIE INFORMATION---------------------------------\n")
-      status.write ("\n\t TITLE       : \t\t"+title)
-      status.write ("\n\t IMDB RATING : \t\t"+rating)
-      status.write ("\n\t RELEASED ON : \t\t"+year)
-      status.write ("\n\t DURATION    : \t\t"+str(duration)+" mins")
-      status.write ("\n\t LANGUAGE    : \t\t"+language[0]['name'])
-      status.write ("\n\t GENRE       : \t\t"+genre[0]['name'])
-      status.write ("\n\t PLOT        : \t\t"+plot)
+		print ("\n\n----------------------------MOVIE INFORMATION-------------------------\n")
+		print ("\n\t TITLE       : \t\t"+title)
+		print ("\n\t IMDB RATING : \t\t"+rating)
+		print ("\n\t RELEASED ON : \t\t"+year)
+		print ("\n\t DURATION    : \t\t"+str(duration)+" mins")
+		# print ("\n\t LANGUAGE    : \t\t"+language[0]['name'])
+		print ("\n\t GENRE       : \t\t"+genre[0]['name'])
+		print ("\n\t PLOT        : \t\t"+plot)
+
+		status.write ("\n\n--------------------------------------MOVIE INFORMATION---------------------------------\n")
+		status.write ("\n\t TITLE       : \t\t"+title)
+		status.write ("\n\t IMDB RATING : \t\t"+rating)
+		status.write ("\n\t RELEASED ON : \t\t"+year)
+		status.write ("\n\t DURATION    : \t\t"+str(duration)+" mins")
+		# status.write ("\n\t LANGUAGE    : \t\t"+language[0]['name'])
+		status.write ("\n\t GENRE       : \t\t"+genre[0]['name'])
+		status.write ("\n\t PLOT        : \t\t"+plot)
 
     except KeyError:
         print "\nNo such movie titled '"+name+"' found!\n"
@@ -69,7 +69,6 @@ def top_movies():
     html = response.text
     soup = bs4.BeautifulSoup(html,"lxml")
     rows = soup.select('.lister-list tr')
-    #print rows[26]
     print ("\n"+"----------------------------------TOP "+str(x)+" MOVIES ACCORDING TO IMDB RATINGS---------------------------------"+"\n\n")
     print (" \t   TITLE\t\t\t\t\t\t\t\t\t\t   IMDB RATING\n\n")
     status.write ("\n"+"---------------------------TOP "+str(x)+" MOVIES ACCORDING TO IMDB RATINGS-----------------------------"+"\n\n")
@@ -86,39 +85,49 @@ def top_movies():
         
         
 def folder():
-    
     path = raw_input("\n\nEnter the complete path of the directory where your movies are present: ")
     dirs = os.listdir(path)
     print "Showing results for the path: "+path+"\n"
     status.write ('Showing results for the path: '+path+'\n')
     
     for i in range(len(dirs)):
-        x = dirs[i]
-        t = x.replace(' ','+')
-        url = 'http://www.omdbapi.com/?t='+str(t)+'&y=&plot=short&r=json'
-        response = requests.get(url)
-        w = json.loads(response.text)
-        try:
-            title = w['Title']
-            rating = w['imdbRating']
-            year = w['Year']
-            x = path+x
-            x = x.encode('ascii','ignore')
-            ans = "["+rating+"] "+title+" ("+year+")"
-            ans = ans.encode('ascii','ignore')
-            print "\n"+ans
-            status.write ("\n"+ans)
-            ans = path+ans
-            os.rename(x,ans)
-            print "Renaming Done\n"
-            status.write ('Renaming Done\n')
+		x = dirs[i]
+		t = x.replace(' ','%20')
+		url = 'https://api.themoviedb.org/3/search/movie?api_key=ffb07b773769d55c36ccd83845385205&language=en-US&query='+str(t)+'&page=1&include_adult=false'
+		response = requests.get(url)
+		u = json.loads(response.text)
+		results  = u['results']
+		id = results[0]['id']
+		url2 = 'https://api.themoviedb.org/3/movie/'+str(id)+'?api_key=ffb07b773769d55c36ccd83845385205&language=en-US'
+		response = requests.get(url2)
+		w = json.loads(response.text)
+		
+		try:
+			title = w['title']
+			year = w['release_date']
+			imdb_id = w['imdb_id']
+
+			url3 = 'http://www.imdb.com/title/'+str(imdb_id)
+			response = requests.get(url3)
+			html = response.text
+			soup = bs4.BeautifulSoup(html,"lxml")
+			data = soup.select('.ratingValue')
+			rating = data[0].get_text('',strip=True)
+			rating = rating[:-3]
+
+			x = x.encode('ascii','ignore')
+			y = "["+rating+"] "+title+" ("+year+")"
+			y = y.encode('ascii','ignore')
+			print "\n"+y
+			status.write ("\n"+y)
+			os.rename(os.path.join(path, x), os.path.join(path, y))			
+			print "Renaming Done\n"
+			status.write ('Renaming Done\n')
             
-        except KeyError:
-            print "\nNo such movie titled '"+x+"' found or else read the instructions before using this feature!\n"
-            status.write ("\nNo such movie titled '"+x+"' found else read the instructions before using this feature!\n")
-    
-    
-    
+		except KeyError:
+			print "\nNo such movie titled '"+x+"' found or else read the instructions before using this feature!\n"
+			status.write ("\nNo such movie titled '"+x+"' found else read the instructions before using this feature!\n")
+
 
 def driver():
     print "\n\n\t\t\t\t\t----------------IMDB PORTAL--------------------"
@@ -145,4 +154,3 @@ while (1>0) :
         break
 
 status.close()
-
