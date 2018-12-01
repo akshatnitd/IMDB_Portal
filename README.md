@@ -14,7 +14,10 @@
   * It can be installed using `sudo pip install bs4` or `sudo apt-get install python-bs4`
 
 - Requests
-  * It can be installed using `sudo pip install requests` or `sudo apt-get install python-requests`
+  * It can be installed using `sudo pip install requests` or `sudo apt-get install python-requests
+
+- lxml 
+  * It can be installed using `sudo pip install lxml` or `sudo apt-get install python-lxml
 
 
 
