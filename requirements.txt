@@ -1,0 +1,12 @@
+json==18.2
+beautifulsoup4==4.6.0
+requests==2.20.1
+lxml==4.2.5
+
+# For Beautifulsoup installation 
+# 1)In windows, use 'pip install beautifulsoup4'.
+# 2)In Ubuntu, use 'sudo apt-get install python-bs4'
+
+#To install Requests, simply use pipenv (or pip, of course): 'pipenv install requests'
+
+#To install lxml , simply use 'pip install lxml' .
