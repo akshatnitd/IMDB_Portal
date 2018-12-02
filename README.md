@@ -11,14 +11,16 @@
 **Modules used:**
 
 - Bs4
-  * It can be installed using `sudo pip install bs4` or `sudo apt-get install python-bs4`
-
+  
 - Requests
-  * It can be installed using `sudo pip install requests` or `sudo apt-get install python-requests`
-
+  
 - lxml 
-  * It can be installed using `sudo pip install lxml` or `sudo apt-get install python-lxml`
 
+- json
+
+**Installation Guide**
+    
+- To install all the dependencies in the [requirements.txt](https://github.com/NJACKWinterOfCode/IMDB_Portal/blob/master/requirements.txt) file, use command `pip install -r requirements.txt`
 
 
 It is implemented using the **BeautifulSoup** module of **bs4** , **requests** module, along with **os**, **sys** and **json** modules.
