@@ -121,7 +121,7 @@ def folder():
 
             if(sys.version[0] != '3'):
                 x = x.encode('ascii','ignore')
-            y = "["+rating+"] "+title+" ("+year+")"
+            y = "["+rating+"] "+title+" ("+year[:4]+")"
             if(sys.version[0] != '3'):
                 y = y.encode('ascii','ignore')
             print ("\n"+y)
